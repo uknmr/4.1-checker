@@ -39,7 +39,7 @@ const show = (messages) => {
       margin-top: 0;
       margin-bottom: 0;
       overflow-y: auto;
-      backgruond-color: white;
+      background-color: white;
       padding-top: 1em;
       padding-right: 1em;
       width: 25vw;
