@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "4.1 Checker",
+  "version": "1.0",
+  "permissions": ["activeTab"],
+  "browser_action": {
+    "default_title": "4.1 Checker"
+  },
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
