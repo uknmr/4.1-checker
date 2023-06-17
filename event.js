@@ -33,7 +33,16 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   const { command, body } = request
 
   if (command === 'validate_html') {
-    const response = await validateHtml(body)
+    const response = await validateHtml(`
+<!DOCTYPE html>
+<html lang="">
+<head>
+<title>Test</title>
+</head>
+<body>
+${body.replace(' hidden="true"', '')}
+</body>
+</html>`)
 
     chrome.tabs.sendMessage(
       sender.tab.id,

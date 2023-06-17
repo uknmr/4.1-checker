@@ -1,7 +1,33 @@
 const show = (messages) => {
-  const ol = document.createElement('ol')
-  ol.classList.add('nuList')
+  let nuList = document.querySelector('.nuList')
+
+  if (nuList) {
+    while (nuList.firstChild) {
+      nuList.removeChild(nuList.firstChild)
+    }
+  } else {
+    const ol = document.createElement('ol')
+    ol.classList.add('nuList')
+    nuList = ol
+  }
+
   const fg = document.createDocumentFragment()
+
+  if (messages.length === 0) {
+    const li = document.createElement('li')
+    li.insertAdjacentHTML(
+      'afterbegin',
+      `
+      <p>
+        <strong class="info">info</strong>
+        :
+        <span>no error!</span>
+      </p>
+    `,
+    )
+
+    fg.appendChild(li)
+  }
 
   messages.forEach((message) => {
     const li = document.createElement('li')
@@ -24,9 +50,9 @@ const show = (messages) => {
     fg.appendChild(li)
   })
 
-  ol.appendChild(fg)
+  nuList.appendChild(fg)
 
-  document.body.appendChild(ol)
+  document.body.appendChild(nuList)
 
   const sheet = new CSSStyleSheet()
   sheet.replaceSync(`
@@ -40,8 +66,8 @@ const show = (messages) => {
       margin-bottom: 0;
       overflow-y: auto;
       background-color: white;
-      padding-top: 1em;
-      padding-right: 1em;
+      padding-block-start: 1em;
+      padding-inline: 1em;
       width: 25vw;
     }
 
@@ -55,6 +81,10 @@ const show = (messages) => {
 
     .nuList strong.warning {
       color: #8C5EEE;
+    }
+
+    .nuList strong.info {
+      color: #5E8C31;
     }
   `)
 
